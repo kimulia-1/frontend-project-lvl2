@@ -3,6 +3,6 @@ import { Command } from 'commander';
 
 const program = new Command();
 
-program.option('-V, --version', 'output the version number').description('Compares two configuration files and shows a difference.');
+program.name('gendiff').description('Compares two configuration files and shows a difference.').version('0.8.0');
 
 program.parse();
