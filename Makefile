@@ -6,8 +6,8 @@ publish:
 
 test:
 	npm run test
+	
 lib:
-
 	npm install commander
 
 lint:
