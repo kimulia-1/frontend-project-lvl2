@@ -2,9 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 
+const getAbsolutPath = (filepath) => path.resolve(process.cwd(), filepath);
+const readFile = (filepath) => fs.readFileSync(getAbsolutPath(filepath), 'utf-8');
+
 const genDiff = (filepath1, filepath2) => {
-  const first = JSON.parse(fs.readFileSync(path.resolve(filepath1)));
-  const second = JSON.parse(fs.readFileSync(path.resolve(filepath2)));
+  const first = JSON.parse(readFile(filepath1));
+  const second = JSON.parse(readFile(filepath2));
   const keys = _.union(_.keys(first), _.keys(second));
   const diff = keys.sort().map((key) => {
     let result = '';
@@ -22,9 +25,11 @@ const genDiff = (filepath1, filepath2) => {
     }
     return result;
   });
-  return `{
+  const joinResult = `{
    ${diff.join('\n   ')}
- }`;
+}`;
+  console.log(joinResult);
+  return joinResult;
 };
 
 export default genDiff;
